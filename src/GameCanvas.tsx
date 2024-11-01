@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Game from './game/Game';
 import { useWindowDimensions } from './hooks/useWindowDimensions';
+import SoundManager from './game/engine/sound/SoundManager';
 
 const GameCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -12,7 +13,6 @@ const GameCanvas = () => {
     const canvasContext = canvas?.getContext('2d');
 
     if (canvas && canvasContext) {
-
       gameManagerRef.current = new Game(canvas, canvasContext);
     }
 
@@ -27,7 +27,11 @@ const GameCanvas = () => {
     };
   }, []);
 
-  return <canvas width={width} height={height} ref={canvasRef} />;
+  const enableSound = () => {
+    SoundManager.getInstance().enableSound();
+  };
+
+  return <canvas width={width} height={height} ref={canvasRef} onClick={enableSound} />;
 };
 
 export default GameCanvas;

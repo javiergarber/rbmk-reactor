@@ -5,6 +5,7 @@ import CollisionManager from '../engine/colliders/CollisionManager';
 import EntityManager from '../engine/EntityManager';
 import GameObject from '../engine/gameobjects/GameObject';
 import Transform from '../engine/gameobjects/Transform';
+import SoundManager from '../engine/sound/SoundManager';
 import { Point2d } from '../engine/valueobjects/Point2d';
 import Rotation2d from '../engine/valueobjects/Rotation2d';
 import { Size } from '../engine/valueobjects/Size';
@@ -42,7 +43,12 @@ export default class UraniumAtom extends GameObject {
     // for (let i = 0; i < 3; i++) {
     //   EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.random()));
     // }
+    this.playGeigerSound();
     EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.right()));
+  }
+  playGeigerSound() {
+    var values= ['geiger1', 'geiger2', 'geiger3'];
+     SoundManager.getInstance().playSound(values[Math.floor(Math.random() * values.length)]);
   }
 
   handleInput(updateInfo: { deltaTime: number }): void {}

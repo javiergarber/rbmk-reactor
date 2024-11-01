@@ -26,22 +26,22 @@ export default class Neutron extends GameObject {
     this.handleAbsorbed();
   }
 
-  handleOutOfScene() {
+  private handleOutOfScene() {
     if (!this.meshRenderer.isInScene(Camera.getInstance().transform, this.transform)) {
       this.deleteObject();
     }
   }
-  moveFromFromRotation() {
+  private moveFromFromRotation() {
     const radians = this.rotation.angle * (Math.PI / 180);
 
     const deltaX = Math.cos(radians) * this.speed; // velocidad normalizada
     const deltaY = Math.sin(radians) * this.speed; // velocidad normalizada
-    
+
     this.transform.position.x += deltaX;
     this.transform.position.y += deltaY;
   }
 
-  handleAbsorbed() {
+  private handleAbsorbed() {
     if (!this.isAbsorbed) {
       return;
     }
@@ -52,7 +52,7 @@ export default class Neutron extends GameObject {
     this.transform.size.width = this.radius * 2;
   }
 
-  triggerAbsorb() {
+  public triggerAbsorb() {
     this.speed = 0;
     this.isAbsorbed = true;
   }

@@ -3,6 +3,7 @@ import EntityManager from './engine/EntityManager';
 import Camera from './engine/gameobjects/camera/Camera';
 import Transform from './engine/gameobjects/Transform';
 import Input from './engine/input/Input';
+import SoundManager from './engine/sound/SoundManager';
 import { Point2d } from './engine/valueobjects/Point2d';
 import Rotation2d from './engine/valueobjects/Rotation2d';
 import { Size } from './engine/valueobjects/Size';
@@ -28,12 +29,19 @@ export default class Game {
     this.fps = 0;
     this.running = true;
 
+    this.initSoundManager();
     this.initInputSystem();
     this.initGame();
     this.camera = new Camera(new Transform(new Point2d(0, 0), new Size(this.canvas.width, this.canvas.height)));
 
     // Iniciar el bucle del juego
     this.startGameLoop();
+  }
+  initSoundManager() {
+    var soundManager = SoundManager.getInstance();
+    soundManager.loadSound('geiger1', '/sounds/geiger1.mp3');
+    soundManager.loadSound('geiger2', '/sounds/geiger2.mp3');
+    soundManager.loadSound('geiger3', '/sounds/geiger3.mp3');
   }
 
   private initInputSystem() {
