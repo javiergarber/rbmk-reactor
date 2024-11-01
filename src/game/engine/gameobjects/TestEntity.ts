@@ -10,9 +10,6 @@ export default class TestEntity extends GameObject {
   direction: number = 1;
   speed: number = 100;
   constructor() {
-    
-    
-    
     //TODO: no tiene mucho sentido lo del size para un circulo
     super(new Transform(new Point2d(0, 0), new Size(10, 10)), new CircleMeshRenderer('black'));
   }

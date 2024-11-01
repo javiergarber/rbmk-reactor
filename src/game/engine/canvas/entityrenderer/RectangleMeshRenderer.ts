@@ -21,6 +21,4 @@ export default class RectangleMeshRenderer extends MeshRenderer {
       this.color
     );
   }
-
-
 }

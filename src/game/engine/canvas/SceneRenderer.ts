@@ -1,6 +1,5 @@
 import { Point2d } from '../valueobjects/Point2d';
 import { Size } from '../valueobjects/Size';
-import MeshRenderer from './entityrenderer/MeshRenderer';
 
 export class SceneRenderer {
   public static instance: SceneRenderer;
@@ -35,7 +34,7 @@ export class SceneRenderer {
     this.context.fill();
   }
 
-  public drawText(text: string, position: Point2d, color: string,font?:string) {
+  public drawText(text: string, position: Point2d, color: string, font?: string) {
     this.context.font = font || '30px Arial';
     this.context.fillStyle = color;
     this.context.fillText(text, position.x, position.y);

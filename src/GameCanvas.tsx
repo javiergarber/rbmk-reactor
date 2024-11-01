@@ -4,7 +4,7 @@ import { useWindowDimensions } from './hooks/useWindowDimensions';
 
 const GameCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  let gameManager: Game;
+  const gameManagerRef = useRef<Game | null>(null);
   const { width, height } = useWindowDimensions();
 
   useEffect(() => {
@@ -12,12 +12,18 @@ const GameCanvas = () => {
     const canvasContext = canvas?.getContext('2d');
 
     if (canvas && canvasContext) {
-      gameManager = new Game(canvas, canvasContext);
+
+      gameManagerRef.current = new Game(canvas, canvasContext);
     }
 
     // Opcional: cleanup para evitar fugas de memoria o problemas con múltiples instancias
     return () => {
-      // Aquí puedes agregar lógica para limpiar el gameManager si es necesario
+      if (gameManagerRef.current) {
+        // Aquí podrías realizar cualquier limpieza necesaria para tu instancia de Game
+        // Por ejemplo, detener bucles de animación, eliminar eventos, etc.
+        gameManagerRef.current.stopGameLoop();
+        gameManagerRef.current = null;
+      }
     };
   }, []);
 

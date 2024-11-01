@@ -11,7 +11,6 @@ export default abstract class MeshRenderer {
       gameObjectTransform.position.y - gameObjectTransform.size.height / 2 > cameraTransform.size.height + y ||
       y > gameObjectTransform.size.height + gameObjectTransform.position.y - gameObjectTransform.size.height / 2
     ) {
-      console.log('not in scene');
       return false;
     }
     return true;

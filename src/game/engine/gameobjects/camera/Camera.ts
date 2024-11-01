@@ -1,10 +1,7 @@
-import { SceneRenderer } from '../../canvas/SceneRenderer';
-import { Point2d } from '../../valueobjects/Point2d';
 import GameObject from '../GameObject';
 import Transform from '../Transform';
 
 export default class Camera {
-
   transform: Transform;
 
   constructor(transform: Transform) {
@@ -16,6 +13,4 @@ export default class Camera {
       entity.draw(this);
     });
   }
-
-
 }
