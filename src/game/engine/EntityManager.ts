@@ -19,10 +19,6 @@ export default class EntityManager {
     this.entities.splice(this.entities.indexOf(entity), 1);
   }
 
-  public getEntitiesByTag(tag: string) {
-    return this.entities.filter((entity) => entity.tags.includes(tag));
-  }
-
   public getAllEntitites() {
     return this.entities;
   }

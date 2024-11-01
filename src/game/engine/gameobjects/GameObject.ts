@@ -1,4 +1,7 @@
+import EntityManager from '../EntityManager';
 import MeshRenderer from '../canvas/entityrenderer/MeshRenderer';
+import Collider from '../colliders/Collider';
+import CollisionManager from '../colliders/CollisionManager';
 import Transform from './Transform';
 import Camera from './camera/Camera';
 
@@ -9,12 +12,11 @@ type UpdateInfoType = {
 export default abstract class GameObject {
   meshRenderer: MeshRenderer;
   transform: Transform;
-  tags: string[];
+  colider?: Collider;
 
-  constructor(transform: Transform, meshRenderer: MeshRenderer, tags: string[] = []) {
+  constructor(transform: Transform, meshRenderer: MeshRenderer) {
     this.transform = transform;
     this.meshRenderer = meshRenderer;
-    this.tags = tags;
   }
 
   abstract update(updateInfo: UpdateInfoType): void;
@@ -27,4 +29,14 @@ export default abstract class GameObject {
   }
 
   abstract handleInput(updateInfo: UpdateInfoType): void;
+
+  public setCollider(collider: Collider) {
+    CollisionManager.getInstance().addCollider(collider);
+    this.colider = collider;
+  }
+
+  public deleteObject(){
+    CollisionManager.getInstance().removeCollider(this.colider!);
+    EntityManager.getInstance().removeEntity(this);
+  }
 }

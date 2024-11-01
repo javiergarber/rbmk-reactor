@@ -11,4 +11,8 @@ export default class Transform {
     this.size = size;
     this.rotation = rotation || new Rotation2d(0);
   }
+
+  clone(): Transform {
+    return new Transform(this.position.clone(), this.size.clone(), this.rotation.clone());
+  }
 }
