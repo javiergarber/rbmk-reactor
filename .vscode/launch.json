@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "configurations": [
+    {
+      "name": "Start RBMK Simulator",
+    //   "runtimeVersion": "16.0.0",
+      "runtimeArgs": ["start"], //npm run start
+      "env": {
+        "BROWSER": "none"
+      },
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "type": "node"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Run Chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug App",
+      "configurations": ["Start RBMK Simulator", "Run Chrome"],
+      "stopAll": true
+    }
+  ]
+}
