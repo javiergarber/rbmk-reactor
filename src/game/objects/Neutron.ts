@@ -3,22 +3,28 @@ import CircleCollider from '../engine/colliders/CircleCollider';
 import Camera from '../engine/gameobjects/camera/Camera';
 import GameObject from '../engine/gameobjects/GameObject';
 import Transform from '../engine/gameobjects/Transform';
+import SoundManager from '../engine/sound/SoundManager';
 import { Point2d } from '../engine/valueobjects/Point2d';
 import Rotation2d from '../engine/valueobjects/Rotation2d';
 import { Size } from '../engine/valueobjects/Size';
 
 export default class Neutron extends GameObject {
-  speed: number = 2;
+  speed: number = 0.5;
   rotation: Rotation2d;
   isAbsorbed: boolean = false;
   radius: number;
   decayingSpeed: number = 1;
   constructor(position: Point2d, rotation: Rotation2d) {
-    var initialRadius = 10;
-    super(new Transform(position, new Size(initialRadius * 2, initialRadius * 2)), new CircleMeshRenderer('rgb(64, 64, 64)'));
+    var initialRadius = 5;
+    super(new Transform(position, new Size(initialRadius * 2, initialRadius * 2)), new CircleMeshRenderer('rgb(64, 64, 64)', 3));
     this.setCollider(new CircleCollider(this, initialRadius, 'neutron'));
     this.rotation = rotation;
     this.radius = initialRadius;
+    this.emitSound();
+  }
+  emitSound() {
+    var values = ['geiger1', 'geiger2', 'geiger3'];
+    SoundManager.getInstance().playSound(values[Math.floor(Math.random() * values.length)]);
   }
   update(updateInfo: { deltaTime: number }): void {
     this.moveFromFromRotation();
@@ -27,7 +33,7 @@ export default class Neutron extends GameObject {
   }
 
   private handleOutOfScene() {
-    if (!this.meshRenderer.isInScene(Camera.getInstance().transform, this.transform)) {
+    if (!this.meshRenderer?.isInScene(Camera.getInstance().transform, this.transform)) {
       this.deleteObject();
     }
   }

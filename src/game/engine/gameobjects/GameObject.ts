@@ -35,8 +35,10 @@ export default abstract class GameObject {
     this.colider = collider;
   }
 
-  public deleteObject(){
-    CollisionManager.getInstance().removeCollider(this.colider!);
+  public deleteObject() {
+    if (this.colider) {
+      CollisionManager.getInstance().removeCollider(this.colider!);
+    }
     EntityManager.getInstance().removeEntity(this);
   }
 }

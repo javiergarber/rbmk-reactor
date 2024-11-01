@@ -1,3 +1,4 @@
+import Constants from './constants/Constants';
 import { SceneRenderer } from './engine/canvas/SceneRenderer';
 import EntityManager from './engine/EntityManager';
 import Camera from './engine/gameobjects/camera/Camera';
@@ -7,6 +8,7 @@ import SoundManager from './engine/sound/SoundManager';
 import { Point2d } from './engine/valueobjects/Point2d';
 import Rotation2d from './engine/valueobjects/Rotation2d';
 import { Size } from './engine/valueobjects/Size';
+import GameInitializer from './GameInitializer';
 import Neutron from './objects/Neutron';
 import UraniumAtom from './objects/UraniumAtom';
 
@@ -48,10 +50,7 @@ export default class Game {
     Input.keys.init();
   }
   private initGame() {
-    EntityManager.getInstance().addEntity(new Neutron(new Point2d(-500, 0), Rotation2d.right()));
-    EntityManager.getInstance().addEntity(new UraniumAtom(new Point2d(0, 0)));
-    EntityManager.getInstance().addEntity(new UraniumAtom(new Point2d(200, 0)));
-    EntityManager.getInstance().addEntity(new UraniumAtom(new Point2d(400, 0)));
+    GameInitializer.init();
   }
 
   private startGameLoop() {
@@ -104,8 +103,26 @@ export default class Game {
 
   private draw() {
     SceneRenderer.getInstance().clear();
-    this.camera.drawScene(EntityManager.getInstance().getAllEntitites());
+    this.camera.drawScene(
+      EntityManager.getInstance()
+        .getAllEntitites()
+        .sort((a, b) => a.meshRenderer.zIndex - b.meshRenderer.zIndex)
+    );
     this.drawFps();
+    this.drawNeutronsCount();
+  }
+  drawNeutronsCount() {
+    var numberOfNeutrons = EntityManager.getInstance()
+      .getAllEntitites()
+      .filter((predicate) => predicate instanceof Neutron).length;
+
+    console.log(numberOfNeutrons);
+    SceneRenderer.getInstance().drawText(
+      numberOfNeutrons + (numberOfNeutrons <= Constants.MAX_NEUTRONS_ON_SCREEN ? '⬆️' : '⬇️'),
+      new Point2d(this.canvas.width / 2, 30),
+      'black',
+      '18px Arial'
+    );
   }
 
   private drawFps() {

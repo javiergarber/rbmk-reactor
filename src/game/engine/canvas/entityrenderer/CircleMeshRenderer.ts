@@ -6,8 +6,8 @@ import MeshRenderer from './MeshRenderer';
 export default class CircleMeshRenderer extends MeshRenderer {
   private color: string;
 
-  constructor(color: string) {
-    super();
+  constructor(color: string, zIndex: number = 0) {
+    super(zIndex);
     this.color = color;
   }
 

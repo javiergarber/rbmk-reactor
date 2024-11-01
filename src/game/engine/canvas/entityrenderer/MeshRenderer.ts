@@ -1,6 +1,10 @@
 import Transform from '../../gameobjects/Transform';
 
 export default abstract class MeshRenderer {
+  zIndex: number;
+  constructor(zIndex: number= 0) {
+    this.zIndex = zIndex;
+  }
   abstract draw(cameraTransform: Transform, gameObjectTransform: Transform): void;
   isInScene(cameraTransform: Transform, gameObjectTransform: Transform): boolean {
     var x = cameraTransform.position.x - cameraTransform.size.width / 2;

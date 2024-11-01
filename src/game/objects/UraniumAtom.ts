@@ -15,7 +15,7 @@ import NonFisibleAtom from './NonFisibleAtom';
 export default class UraniumAtom extends GameObject {
   direction: number = 1;
   constructor(position: Point2d) {
-    var radius = 20;
+    var radius = 10;
     super(new Transform(position, new Size(radius * 2, radius * 2)), new CircleMeshRenderer('rgb(34, 140, 255)'));
     this.setCollider(new CircleCollider(this, radius, 'uranium'));
   }
@@ -40,16 +40,12 @@ export default class UraniumAtom extends GameObject {
   }
 
   private spawnNeutrons() {
-    // for (let i = 0; i < 3; i++) {
-    //   EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.random()));
-    // }
-    this.playGeigerSound();
-    EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.right()));
+    for (let i = 0; i < 3; i++) {
+      EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.random()));
+    }
+    // EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.right()));
   }
-  playGeigerSound() {
-    var values= ['geiger1', 'geiger2', 'geiger3'];
-     SoundManager.getInstance().playSound(values[Math.floor(Math.random() * values.length)]);
-  }
+
 
   handleInput(updateInfo: { deltaTime: number }): void {}
 }
