@@ -11,11 +11,11 @@ body {
   padding: 0;
   height: 100%;
   max-height: 100%;
-  background: azure;
+  background: white;
   float: left;
   width: 100%;
 }
-#root{
+#root {
   width: 100dvw;
   height: 100dvh;
 }

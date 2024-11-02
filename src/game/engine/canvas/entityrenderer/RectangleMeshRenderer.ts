@@ -11,6 +11,10 @@ export default class RectangleMeshRenderer extends MeshRenderer {
     this.color = color;
   }
 
+  setColor(color: string): void {
+    this.color = color;
+  }
+
   draw(cameraTransform: Transform, gameObjectTransform: Transform): void {
     const { x: cameraX, y: cameraY } = cameraTransform.position;
     const { width: cameraWidth, height: cameraHeight } = cameraTransform.size;

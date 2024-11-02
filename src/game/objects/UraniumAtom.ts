@@ -1,3 +1,4 @@
+import Constants from '../constants/Constants';
 import CircleMeshRenderer from '../engine/canvas/entityrenderer/CircleMeshRenderer';
 import CircleCollider from '../engine/colliders/CircleCollider';
 import Collider from '../engine/colliders/Collider';
@@ -15,8 +16,8 @@ import NonFisibleAtom from './NonFisibleAtom';
 export default class UraniumAtom extends GameObject {
   direction: number = 1;
   constructor(position: Point2d) {
-    var radius = 10;
-    super(new Transform(position, new Size(radius * 2, radius * 2)), new CircleMeshRenderer('rgb(34, 140, 255)'));
+    var radius = Constants.ATOM_RADIUS;
+    super(new Transform(position, new Size(radius * 2, radius * 2)), new CircleMeshRenderer('rgb(34, 140, 255)',1));
     this.setCollider(new CircleCollider(this, radius, 'uranium'));
   }
   update(updateInfo: { deltaTime: number }): void {

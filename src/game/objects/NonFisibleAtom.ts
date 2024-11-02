@@ -1,3 +1,4 @@
+import Constants from '../constants/Constants';
 import CircleMeshRenderer from '../engine/canvas/entityrenderer/CircleMeshRenderer';
 import EntityManager from '../engine/EntityManager';
 import GameObject from '../engine/gameobjects/GameObject';
@@ -14,10 +15,10 @@ export default class NonFisibleAtom extends GameObject {
   private timeToEmit: number;
   private timeToUranium: number;
   constructor(position: Point2d) {
-    var radius = 10;
-    super(new Transform(position, new Size(radius * 2, radius * 2)), new CircleMeshRenderer('rgb(187, 187, 187)'));
+    var radius = Constants.ATOM_RADIUS;
+    super(new Transform(position, new Size(radius * 2, radius * 2)), new CircleMeshRenderer('rgb(187, 187, 187)', 1));
     this.timeToEmit = MathUtil.randomInt(0, this.halfLife);
-    this.timeToUranium = MathUtil.randomInt(0, this.halfLife );
+    this.timeToUranium = MathUtil.randomInt(0, this.halfLife);
   }
   update(updateInfo: { deltaTime: number }): void {
     this.timeToEmit -= 1;

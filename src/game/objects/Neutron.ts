@@ -1,3 +1,4 @@
+import Constants from '../constants/Constants';
 import CircleMeshRenderer from '../engine/canvas/entityrenderer/CircleMeshRenderer';
 import CircleCollider from '../engine/colliders/CircleCollider';
 import Camera from '../engine/gameobjects/camera/Camera';
@@ -15,7 +16,7 @@ export default class Neutron extends GameObject {
   radius: number;
   decayingSpeed: number = 1;
   constructor(position: Point2d, rotation: Rotation2d) {
-    var initialRadius = 5;
+    var initialRadius = Constants.NEUTRON_RADIUS;
     super(new Transform(position, new Size(initialRadius * 2, initialRadius * 2)), new CircleMeshRenderer('rgb(64, 64, 64)', 3));
     this.setCollider(new CircleCollider(this, initialRadius, 'neutron'));
     this.rotation = rotation;
