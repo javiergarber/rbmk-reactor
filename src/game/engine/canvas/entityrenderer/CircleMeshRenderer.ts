@@ -10,7 +10,9 @@ export default class CircleMeshRenderer extends MeshRenderer {
     super(zIndex);
     this.color = color;
   }
-
+  setColor(color: string) {
+    this.color = color;
+  }
   draw(cameraTransform: Transform, gameObjectTransform: Transform): void {
     const { x: cameraX, y: cameraY } = cameraTransform.position;
     const { width: cameraWidth, height: cameraHeight } = cameraTransform.size;

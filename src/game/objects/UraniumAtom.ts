@@ -12,12 +12,13 @@ import Rotation2d from '../engine/valueobjects/Rotation2d';
 import { Size } from '../engine/valueobjects/Size';
 import Neutron from './Neutron';
 import NonFisibleAtom from './NonFisibleAtom';
+import XenonAtom from './XenonAtom';
 
 export default class UraniumAtom extends GameObject {
   direction: number = 1;
   constructor(position: Point2d) {
     var radius = Constants.ATOM_RADIUS;
-    super(new Transform(position, new Size(radius * 2, radius * 2)), new CircleMeshRenderer('rgb(34, 140, 255)',1));
+    super(new Transform(position, new Size(radius * 2, radius * 2)), new CircleMeshRenderer('rgb(34, 140, 255)', 1));
     this.setCollider(new CircleCollider(this, radius, 'uranium'));
   }
   update(updateInfo: { deltaTime: number }): void {
@@ -37,7 +38,12 @@ export default class UraniumAtom extends GameObject {
   }
 
   private createNonFisibleAtom() {
-    EntityManager.getInstance().addEntity(new NonFisibleAtom(this.transform.position.clone()));
+    var decayIntoXenon = Math.random() < Constants.XENON_DECAYMENT_PROBABILITY;
+    if (decayIntoXenon) {
+      EntityManager.getInstance().addEntity(new XenonAtom(this.transform.position.clone()));
+    } else {
+      EntityManager.getInstance().addEntity(new NonFisibleAtom(this.transform.position.clone()));
+    }
   }
 
   private spawnNeutrons() {
@@ -46,7 +52,6 @@ export default class UraniumAtom extends GameObject {
     }
     // EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.right()));
   }
-
 
   handleInput(updateInfo: { deltaTime: number }): void {}
 }

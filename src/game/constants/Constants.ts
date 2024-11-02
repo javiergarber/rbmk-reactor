@@ -7,4 +7,5 @@ export default class Constants {
   static WATER_NEUTRON_ABSORPTION_PROBABILITY = 0.0005;
   static WATER_TEMPERATURE_INCREASE = 0.07;
   static WATER_TEMPERATURE_LOSS = 0.02;
+  static XENON_DECAYMENT_PROBABILITY = 0.6;
 }

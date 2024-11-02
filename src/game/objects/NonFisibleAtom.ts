@@ -18,7 +18,7 @@ export default class NonFisibleAtom extends GameObject {
     var radius = Constants.ATOM_RADIUS;
     super(new Transform(position, new Size(radius * 2, radius * 2)), new CircleMeshRenderer('rgb(187, 187, 187)', 1));
     this.timeToEmit = MathUtil.randomInt(0, this.halfLife);
-    this.timeToUranium = MathUtil.randomInt(0, this.halfLife);
+    this.timeToUranium = MathUtil.randomInt(0, this.halfLife*4/3);
   }
   update(updateInfo: { deltaTime: number }): void {
     this.timeToEmit -= 1;
