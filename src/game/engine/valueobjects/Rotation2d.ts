@@ -1,4 +1,13 @@
 export default class Rotation2d {
+  static rotate(rotation: Rotation2d, angle: number): Rotation2d {
+    if (rotation.angle + angle > 360) {
+      return new Rotation2d(rotation.angle + angle - 360);
+    } else if (rotation.angle + angle < 0) {
+      return new Rotation2d(rotation.angle + angle + 360);
+    } else {
+      return new Rotation2d(rotation.angle + angle);
+    }
+  }
   angle: number;
   constructor(angle: number) {
     if (angle < 0 || angle > 360) {
@@ -24,7 +33,7 @@ export default class Rotation2d {
     return new Rotation2d(270);
   }
 
-  clone(): Rotation2d | undefined {
+  clone(): Rotation2d  {
     return new Rotation2d(this.angle);
   }
 }

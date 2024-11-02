@@ -7,10 +7,23 @@ import GameObject from '../engine/gameobjects/GameObject';
 import Transform from '../engine/gameobjects/Transform';
 import { Point2d } from '../engine/valueobjects/Point2d';
 import { Size } from '../engine/valueobjects/Size';
+import ControlPanel from './ControlPanel';
 import Neutron from './Neutron';
 
 export default class Water extends GameObject {
-  private colors = ['rgb(220, 236, 253)', 'rgb(245, 202, 209)', 'rgb(245, 154, 157)', 'rgb(244, 77, 77)', 'rgb(255, 255, 255)'];
+  private colors = [
+    'rgb(220, 236, 253)',
+    'rgb(223, 227, 246)',
+    'rgb(225, 218, 240)',
+    'rgb(228, 208, 233)',
+    'rgb(231, 199, 226)',
+    'rgb(234, 190, 219)',
+    'rgb(237, 180, 213)',
+    'rgb(241, 165, 195)',
+    'rgb(243, 120, 137)',
+    'rgb(244, 77, 77)'
+  ];
+  private gasColor = 'rgb(255, 255, 255)';
   private temperature: number = 0;
   constructor(position: Point2d) {
     super(new Transform(position, new Size(Constants.WATER_SIDE, Constants.WATER_SIDE)), new RectangleMeshRenderer('rgb(220, 236, 253)', 0));
@@ -19,25 +32,25 @@ export default class Water extends GameObject {
   update(updateInfo: { deltaTime: number }): void {
     var neutronCollider = CollisionManager.getInstance().checkCollisionWithTagged(this.colider, 'neutron');
     if (neutronCollider) {
-      this.temperature += Constants.WATER_TEMPERATURE_INCREASE;
+      this.temperature += Constants.WATER_HEATING_RATE;
       this.handleNeutronCollision(neutronCollider);
     } else {
-      this.temperature -= Constants.WATER_TEMPERATURE_LOSS;
+      if (this.temperature > 0) {
+        this.temperature -= ControlPanel.getInstance().getWaterCoolingRate();
+      } else {
+        this.temperature = 0;
+      }
     }
     this.paintWater();
   }
   paintWater() {
     var meshRenderer = this.meshRenderer as RectangleMeshRenderer;
-    if (this.temperature < 25) {
-      meshRenderer.setColor(this.colors[0]);
-    } else if (this.temperature < 25 && this.temperature < 50) {
-      meshRenderer.setColor(this.colors[1]);
-    } else if (this.temperature < 50 && this.temperature < 75) {
-      meshRenderer.setColor(this.colors[2]);
-    } else if (this.temperature < 75 && this.temperature < 100) {
-      meshRenderer.setColor(this.colors[3]);
+    if (this.temperature <= 100) {
+      // Calcular el índice correspondiente en la array de colores
+      var index = Math.floor(this.temperature / 10);
+      meshRenderer.setColor(this.colors[index]);
     } else {
-      meshRenderer.setColor(this.colors[4]);
+      meshRenderer.setColor(this.gasColor);
     }
   }
   handleInput(updateInfo: { deltaTime: number }): void {}

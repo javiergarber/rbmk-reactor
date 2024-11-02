@@ -14,7 +14,7 @@ export default class Neutron extends GameObject {
   rotation: Rotation2d;
   isAbsorbed: boolean = false;
   radius: number;
-  decayingSpeed: number = 1;
+  radiusReductionRate: number = 0.2;
   constructor(position: Point2d, rotation: Rotation2d) {
     var initialRadius = Constants.NEUTRON_RADIUS;
     super(new Transform(position, new Size(initialRadius * 2, initialRadius * 2)), new CircleMeshRenderer('rgb(64, 64, 64)', 3));
@@ -55,7 +55,7 @@ export default class Neutron extends GameObject {
     if (this.radius < 1) {
       this.deleteObject();
     }
-    this.radius -= this.decayingSpeed;
+    this.radius -= this.radiusReductionRate;
     this.transform.size.width = this.radius * 2;
   }
 

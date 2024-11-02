@@ -10,6 +10,7 @@ import SoundManager from '../engine/sound/SoundManager';
 import { Point2d } from '../engine/valueobjects/Point2d';
 import Rotation2d from '../engine/valueobjects/Rotation2d';
 import { Size } from '../engine/valueobjects/Size';
+import FastNeutron from './FastNeutron';
 import Neutron from './Neutron';
 import NonFisibleAtom from './NonFisibleAtom';
 import XenonAtom from './XenonAtom';
@@ -48,7 +49,7 @@ export default class UraniumAtom extends GameObject {
 
   private spawnNeutrons() {
     for (let i = 0; i < 3; i++) {
-      EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.random()));
+      EntityManager.getInstance().addEntity(new FastNeutron(this.transform.position.clone(), Rotation2d.random()));
     }
     // EntityManager.getInstance().addEntity(new Neutron(this.transform.position.clone(), Rotation2d.right()));
   }

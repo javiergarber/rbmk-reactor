@@ -2,6 +2,7 @@ import { Point2d } from '../valueobjects/Point2d';
 import { Size } from '../valueobjects/Size';
 
 export class SceneRenderer {
+
   public static instance: SceneRenderer;
   context: CanvasRenderingContext2D;
   canvasElement: HTMLCanvasElement;
@@ -46,5 +47,23 @@ export class SceneRenderer {
 
   public clear() {
     this.context.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+  }
+
+  public drawContouredCircle(position: Point2d, radius: number, interiorColor: string, exteriorColor: string, lineWidth: number) {
+    this.context.beginPath();
+    this.context.arc(position.x, position.y, radius, 0, 2 * Math.PI);
+    this.context.fillStyle = exteriorColor;
+    this.context.fill();
+    this.context.lineWidth = lineWidth;
+    this.context.strokeStyle = interiorColor;
+    this.context.stroke();
+  }
+
+  drawContouredRect(position: Point2d, size: Size, interiorColor: string, exteriorColor: string, lineWidth: number) {
+    this.context.lineWidth = lineWidth;
+    this.context.strokeStyle = exteriorColor;
+    this.context.strokeRect(position.x - size.width / 2, position.y - size.height / 2, size.width, size.height);
+    this.context.fillStyle = interiorColor;
+    this.context.fillRect(position.x - size.width / 2, position.y - size.height / 2, size.width, size.height);
   }
 }

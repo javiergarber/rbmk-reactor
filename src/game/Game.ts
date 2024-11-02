@@ -6,11 +6,9 @@ import Transform from './engine/gameobjects/Transform';
 import Input from './engine/input/Input';
 import SoundManager from './engine/sound/SoundManager';
 import { Point2d } from './engine/valueobjects/Point2d';
-import Rotation2d from './engine/valueobjects/Rotation2d';
 import { Size } from './engine/valueobjects/Size';
 import GameInitializer from './GameInitializer';
 import Neutron from './objects/Neutron';
-import UraniumAtom from './objects/UraniumAtom';
 
 export default class Game {
   canvas: HTMLCanvasElement;
@@ -116,7 +114,6 @@ export default class Game {
       .getAllEntitites()
       .filter((predicate) => predicate instanceof Neutron).length;
 
-    console.log(numberOfNeutrons);
     SceneRenderer.getInstance().drawText(
       numberOfNeutrons + (numberOfNeutrons <= Constants.MAX_NEUTRONS_ON_SCREEN ? '⬆️' : '⬇️'),
       new Point2d(this.canvas.width / 2, 30),
