@@ -17,10 +17,10 @@ export default class GameInitializer {
   static createControlRods() {
     var controlRodManager = ControlRodManager.getInstance();
     EntityManager.getInstance().addEntity(controlRodManager);
-    for (let i = 0; i < 11; i++) {
+    for (let i = 0; i < Constants.HORIZONTAL_ATOMS / 4 + 1; i++) {
       var controlRod = new ControlRod(
         new Point2d(
-          -(Constants.WATER_SEPARATION + Constants.WATER_SIDE) / 2 + this.startX + i*4 * (Constants.WATER_SEPARATION + Constants.WATER_SIDE),
+          -(Constants.WATER_SEPARATION + Constants.WATER_SIDE) / 2 + this.startX + i * 4 * (Constants.WATER_SEPARATION + Constants.WATER_SIDE),
           this.startY + (Constants.WATER_SEPARATION + Constants.WATER_SIDE)
         )
       );
@@ -29,13 +29,12 @@ export default class GameInitializer {
     }
   }
   static createAtoms() {
-    var uraniumEnrichement = 0.1;
 
-    for (let i = 0; i < 40; i++) {
-      for (let j = 0; j < 15; j++) {
+    for (let i = 0; i < Constants.HORIZONTAL_ATOMS; i++) {
+      for (let j = 0; j < Constants.VERTICAL_ATOMS; j++) {
         var xPosition = this.startX + i * (Constants.WATER_SEPARATION + Constants.WATER_SIDE);
         var yPosition = this.startY + j * (Constants.WATER_SEPARATION + Constants.WATER_SIDE);
-        if (Math.random() < uraniumEnrichement) {
+        if (Math.random() < Constants.URANIUM_ENRICHMENT_THRESHOLD) {
           EntityManager.getInstance().addEntity(new UraniumAtom(new Point2d(xPosition, yPosition)));
         } else {
           EntityManager.getInstance().addEntity(new NonFisibleAtom(new Point2d(xPosition, yPosition)));

@@ -8,4 +8,7 @@ export default class Constants {
   static WATER_TEMPERATURE_INCREASE = 0.07;
   static WATER_TEMPERATURE_LOSS = 0.02;
   static XENON_DECAYMENT_PROBABILITY = 0.6;
+  static HORIZONTAL_ATOMS = 40;
+  static VERTICAL_ATOMS = 15;
+  static URANIUM_ENRICHMENT_THRESHOLD = 0.1;
 }
